@@ -6,6 +6,7 @@ library(xgboost)
 library(RcppRoll)
 library(reshape2)
 library(MLmetrics)
+library(ggplot2)
 
 # import data
 df <- read.csv('avocado.csv')
@@ -154,7 +155,8 @@ graph_data <- df[df$region == "Detroit" & df$Date > "2017-06-01",c("AveragePrice
 graph_data <- melt(graph_data,id="Date")
 
 ggplot(data=graph_data, aes(x=Date, y=value, group=variable)) +
-  geom_line(aes(color=variable))
+  geom_line(aes(color=variable)) +
+  ggtitle("Avocado price in Detroit")
 
 # MAPE
 MAPE(df[df$Date >= "2018-02-04","AveragePricePred"],df[df$Date >= "2018-02-04","AveragePrice"])
